@@ -455,6 +455,99 @@
 
       let birthdayConfettiFired = false;
 
+      /* ---------- Happy Birthday melody (synthesized, no audio file needed) ---------- */
+      const NOTE_FREQS = {
+        C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.0, A4: 440.0, B4: 493.88,
+        C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99
+      };
+
+      const birthdayMelody = [
+        ['G4', 0.5], ['G4', 0.5], ['A4', 1], ['G4', 1], ['C5', 1], ['B4', 2],
+        ['G4', 0.5], ['G4', 0.5], ['A4', 1], ['G4', 1], ['D5', 1], ['C5', 2],
+        ['G4', 0.5], ['G4', 0.5], ['G5', 1], ['E5', 1], ['C5', 1], ['B4', 1], ['A4', 2],
+        ['F5', 0.5], ['F5', 0.5], ['E5', 1], ['C5', 1], ['D5', 1], ['C5', 2]
+      ];
+
+      const birthdaySongBtn = document.getElementById('birthday-song-btn');
+      let audioCtx = null;
+      let birthdaySongPlaying = false;
+      let birthdaySongAttempted = false;
+      let birthdaySongTimers = [];
+
+      function ensureAudioContext() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        return audioCtx;
+      }
+
+      function playNote(freq, startTime, duration) {
+        const ctx = ensureAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.22, startTime + 0.04);
+        gain.gain.linearRampToValueAtTime(0.15, startTime + duration * 0.6);
+        gain.gain.linearRampToValueAtTime(0, startTime + duration);
+
+        osc.start(startTime);
+        osc.stop(startTime + duration + 0.05);
+      }
+
+      function playMelodyOnce(onComplete) {
+        const ctx = ensureAudioContext();
+        const beatDuration = 0.34;
+        let time = ctx.currentTime + 0.05;
+        birthdayMelody.forEach(([note, beats]) => {
+          const duration = beats * beatDuration;
+          playNote(NOTE_FREQS[note], time, duration * 0.92);
+          time += duration;
+        });
+        const totalMs = (time - ctx.currentTime) * 1000;
+        birthdaySongTimers.push(setTimeout(onComplete, totalMs));
+      }
+
+      function loopBirthdaySong() {
+        if (!birthdaySongPlaying) return;
+        playMelodyOnce(() => {
+          if (!birthdaySongPlaying) return;
+          birthdaySongTimers.push(setTimeout(loopBirthdaySong, 2200));
+        });
+      }
+
+      function startBirthdaySong() {
+        if (birthdaySongPlaying) return;
+        const ctx = ensureAudioContext();
+        if (ctx.state === 'suspended') ctx.resume();
+        birthdaySongPlaying = true;
+        loopBirthdaySong();
+        birthdaySongBtn.classList.add('is-playing');
+        birthdaySongBtn.setAttribute('aria-pressed', 'true');
+        birthdaySongBtn.textContent = '🔇 Pause My Song';
+      }
+
+      function stopBirthdaySong() {
+        birthdaySongPlaying = false;
+        birthdaySongTimers.forEach(clearTimeout);
+        birthdaySongTimers = [];
+        birthdaySongBtn.classList.remove('is-playing');
+        birthdaySongBtn.setAttribute('aria-pressed', 'false');
+        birthdaySongBtn.textContent = '🎶 Play My Birthday Song';
+      }
+
+      birthdaySongBtn.addEventListener('click', () => {
+        if (birthdaySongPlaying) {
+          stopBirthdaySong();
+        } else {
+          startBirthdaySong();
+        }
+      });
+
       function updateCountdown() {
         const now = new Date();
 
@@ -465,12 +558,20 @@
           cdSecs.textContent = '00';
           countdownMessage.textContent = "🎉 It's My Birthday Today! 🎂";
           countdownSection.classList.add('is-birthday');
+          birthdaySongBtn.classList.add('is-visible');
           if (!birthdayConfettiFired && !prefersReducedMotion) {
             birthdayConfettiFired = true;
             launchConfetti(4000);
           }
+          if (!birthdaySongAttempted) {
+            birthdaySongAttempted = true;
+            startBirthdaySong();
+          }
           return;
         }
+
+        birthdaySongBtn.classList.remove('is-visible');
+        if (birthdaySongPlaying) stopBirthdaySong();
 
         const target = getNextBirthday(now);
         const diff = target - now;
