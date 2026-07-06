@@ -19,7 +19,7 @@
   <body>
     <div class="page-shell">
       <header class="hero" id="home">
-        <video id="hero-video" autoplay muted playsinline preload="auto">
+        <video id="hero-video" autoplay playsinline preload="auto">
           <source src="videos/first-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -56,6 +56,7 @@
               </div>
             </div>
             <p id="countdown-status">Counting down to her special day.</p>
+            <button class="sound-toggle" id="sound-toggle" type="button">🔊 Play with sound</button>
           </aside>
         </div>
       </header>
@@ -134,6 +135,43 @@
         </div>
       </section>
 
+      <section class="video-showcase" id="videos">
+        <div class="section-heading">
+          <h2>Video Highlights</h2>
+          <p>These clips are part of the birthday celebration and now appear as a dedicated showcase section.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <video controls playsinline preload="metadata">
+              <source src="videos/first-video.mp4" type="video/mp4" />
+            </video>
+            <div class="card-content">
+              <h3>Opening Tribute</h3>
+              <p>The first highlight reel that opens the celebration in the header.</p>
+            </div>
+          </article>
+          <article class="video-card">
+            <video controls playsinline preload="metadata">
+              <source src="videos/second-video.mp4" type="video/mp4" />
+            </video>
+            <div class="card-content">
+              <h3>Joyful Moment</h3>
+              <p>A vibrant clip that adds warmth and energy to the birthday story.</p>
+            </div>
+          </article>
+          <article class="video-card">
+            <video controls playsinline preload="metadata">
+              <source src="videos/third-video.mp4" type="video/mp4" />
+            </video>
+            <div class="card-content">
+              <h3>Closing Glow</h3>
+              <p>A graceful finale that brings the celebration to a memorable close.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section id="future">
         <div class="section-heading">
           <h2>Her Future Aspirations</h2>
@@ -171,6 +209,7 @@
 
     <script>
       const video = document.getElementById('hero-video');
+      const soundToggle = document.getElementById('sound-toggle');
       const sources = [
         'videos/first-video.mp4',
         'videos/second-video.mp4',
@@ -211,6 +250,17 @@
         video.load();
         video.play().catch(() => {});
       }
+
+      soundToggle.addEventListener('click', async () => {
+        try {
+          video.muted = false;
+          await video.play();
+          soundToggle.textContent = '🔊 Sound enabled';
+          soundToggle.disabled = true;
+        } catch (error) {
+          soundToggle.textContent = 'Audio blocked by browser';
+        }
+      });
 
       video.addEventListener('ended', () => {
         index = (index + 1) % sources.length;
