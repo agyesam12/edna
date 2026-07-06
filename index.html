@@ -206,13 +206,18 @@
         document.getElementById('countdown-status').textContent = 'Counting down to her special day.';
       }
 
-      video.addEventListener('ended', () => {
-        index = (index + 1) % sources.length;
+      function playCurrentVideo() {
         video.src = sources[index];
         video.load();
         video.play().catch(() => {});
+      }
+
+      video.addEventListener('ended', () => {
+        index = (index + 1) % sources.length;
+        playCurrentVideo();
       });
 
+      playCurrentVideo();
       updateCountdown();
       setInterval(updateCountdown, 1000);
     </script>
