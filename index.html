@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edna | Portfolio</title>
+    <title>Amo Edna Mensima | Portfolio</title>
     <meta
       name="description"
-      content="Edna's birthday portfolio — my growth, my faith, and my future ambitions, in my own words."
+      content="Amo Edna Mensima's birthday portfolio — my growth, my faith, and my future ambitions, in my own words."
     />
     <meta property="og:title" content="Daddy's Pride" />
     <meta property="og:description" content="A beautiful birthday celebration featuring my journey, my growth, and my future aspirations." />
@@ -29,6 +29,7 @@
     <div class="scroll-progress" id="scroll-progress"></div>
     <canvas id="confetti-canvas" aria-hidden="true"></canvas>
     <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑</button>
+    <button class="birthday-song-btn" id="birthday-song-btn" type="button" aria-pressed="false">🎶 Play My Birthday Song</button>
 
     <div class="page-shell">
       <header class="hero" id="home">
@@ -88,7 +89,7 @@
         <div class="section-heading reveal">
           <span class="eyebrow">Our Story</span>
           <h2>About Me</h2>
-          <p>I'm a young scholar rooted in faith, shaped by excellence, and moving boldly toward my future.</p>
+          <p>Hi, I'm <strong>Amo Edna Mensima</strong> — a young scholar rooted in faith, shaped by excellence, and moving boldly toward my future.</p>
         </div>
 
         <div class="about-grid">
@@ -98,7 +99,7 @@
           </article>
           <article class="about-card reveal">
             <h3>Academic Journey</h3>
-            <p>I attended STEM SHS and completed my studies this year, after building a strong academic foundation from JHS at Kwabeng.</p>
+            <p>I served as assistant head girl at A.M.E Zion, before continuing my education at Abomosu STEM SHS, where I completed my studies this year.</p>
           </article>
           <article class="about-card reveal">
             <h3>What Stands Out</h3>
@@ -123,6 +124,43 @@
             <strong class="stat-number" data-target="100" data-suffix="%">0</strong>
             <span>Determination</span>
           </div>
+        </div>
+      </section>
+
+      <section class="roots-section" id="roots">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Where I Come From</span>
+          <h2>My Roots & My Motivation</h2>
+          <p>Family, leadership, and the people who shaped the person I'm becoming.</p>
+        </div>
+
+        <div class="roots-grid">
+          <article class="roots-card featured reveal">
+            <img src="images/edna-and-dad-pic.jpeg" alt="Edna with her father" data-caption="My Father — He encourages me in all things I do." loading="lazy" decoding="async" />
+            <div class="roots-overlay">
+              <span class="roots-tag">My Greatest Motivation</span>
+              <h3>My Father</h3>
+              <p>He encourages me in all things I do — his belief in me is the quiet engine behind every goal I chase.</p>
+            </div>
+          </article>
+
+          <article class="roots-card reveal">
+            <img src="images/family-image.jpeg" alt="Edna with her family" data-caption="Family — The foundation I stand on." loading="lazy" decoding="async" />
+            <div class="roots-overlay">
+              <span class="roots-tag">Family</span>
+              <h3>The Foundation I Stand On</h3>
+              <p>Every step I take carries the love and values my family poured into me.</p>
+            </div>
+          </article>
+
+          <article class="roots-card reveal">
+            <img src="images/school-prefect-pic.jpeg" alt="Edna as assistant head girl at A.M.E Zion" data-caption="Leadership — Assistant Head Girl, A.M.E Zion." loading="lazy" decoding="async" />
+            <div class="roots-overlay">
+              <span class="roots-tag">Leadership</span>
+              <h3>Assistant Head Girl, A.M.E Zion</h3>
+              <p>My first taste of responsibility — a role that taught me service, discipline, and quiet confidence.</p>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -495,7 +533,7 @@
         lightbox.setAttribute('aria-hidden', 'true');
       }
 
-      document.querySelectorAll('.gallery-card img').forEach((img) => {
+      document.querySelectorAll('.gallery-card img, .roots-card img').forEach((img) => {
         img.addEventListener('click', () => openLightbox(img));
       });
 
