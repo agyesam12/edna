@@ -25,6 +25,7 @@ body {
   background:
     radial-gradient(circle at top left, rgba(138, 63, 201, 0.32), transparent 30%),
     linear-gradient(135deg, var(--bg) 0%, #100f17 100%);
+  -webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -414,10 +415,6 @@ section {
 }
 
 @media (max-width: 900px) {
-  .hero-stage {
-    grid-template-columns: 1fr;
-  }
-
   .about-grid,
   .gallery-grid,
   .future-grid,
@@ -427,19 +424,58 @@ section {
 }
 
 @media (max-width: 640px) {
+  .hero {
+    min-height: 100svh;
+    padding: 1rem 0.95rem 1.4rem;
+  }
+
   .top-nav {
     flex-direction: column;
     gap: 0.7rem;
     border-radius: 24px;
+    width: 100%;
+    padding: 0.8rem 1rem;
   }
 
-  .hero-content,
+  .nav-links {
+    justify-content: center;
+  }
+
+  .hero-stage {
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+  }
+
   .hero-countdown {
-    padding: 1.4rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
   }
 
   .countdown-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .countdown-item strong {
+    font-size: 1.2rem;
+  }
+
+  .hero-highlights {
+    justify-content: center;
+  }
+
+  .hero-highlights span {
+    font-size: 0.68rem;
+  }
+
+  section {
+    padding: 3.4rem 0.95rem;
+  }
+
+  .section-heading {
+    margin-bottom: 1.3rem;
   }
 
   .about-grid,
@@ -451,5 +487,21 @@ section {
 
   .hero h1 {
     font-size: 2rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .gallery-card img {
+    height: 220px;
+  }
+
+  .celebrate-card {
+    padding: 1.25rem;
+  }
+
+  .site-footer {
+    padding: 1.2rem 1rem 1.6rem;
   }
 }
