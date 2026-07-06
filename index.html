@@ -19,34 +19,45 @@
   <body>
     <div class="page-shell">
       <header class="hero" id="home">
-        <video id="hero-video" autoplay muted playsinline loop>
+        <video id="hero-video" autoplay muted playsinline preload="auto">
           <source src="videos/first-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Primary navigation">
           <a class="brand" href="#home">EDNA</a>
           <div class="nav-links">
             <a href="#about">About</a>
             <a href="#growth">Growth</a>
             <a href="#future">Future</a>
+            <a href="#contact">Contact</a>
           </div>
         </nav>
 
-        <div class="hero-content">
-          <p class="eyebrow">Happy Birthday Edna • 7 July 2026</p>
-          <h1>Bright, graceful, and destined for greatness.</h1>
-          <p>
-            This celebration honors Edna’s journey from a determined student at STEM SHS to a young woman of faith,
-            purpose, and inspiring potential. Her story is one of discipline, growth, and bright possibilities.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#growth">See Her Journey</a>
-            <a class="btn btn-secondary" href="#future">Discover Her Future</a>
-          </div>
+        <div class="hero-stage">
+          <aside class="hero-countdown" aria-live="polite">
+            <p class="eyebrow">Birthday countdown</p>
+            <div class="countdown-grid">
+              <div class="countdown-item">
+                <strong id="days">00</strong>
+                <span>Days</span>
+              </div>
+              <div class="countdown-item">
+                <strong id="hours">00</strong>
+                <span>Hours</span>
+              </div>
+              <div class="countdown-item">
+                <strong id="minutes">00</strong>
+                <span>Minutes</span>
+              </div>
+              <div class="countdown-item">
+                <strong id="seconds">00</strong>
+                <span>Seconds</span>
+              </div>
+            </div>
+            <p id="countdown-status">Counting down to her special day.</p>
+          </aside>
         </div>
-
-        <div class="hero-badge">A celebration of purpose and promise</div>
       </header>
 
       <section id="about">
@@ -154,6 +165,10 @@
       </section>
     </div>
 
+    <footer class="site-footer" id="contact">
+      <p>© 2026 Sammyfold Technology. All rights reserved.</p>
+    </footer>
+
     <script>
       const video = document.getElementById('hero-video');
       const sources = [
@@ -161,7 +176,35 @@
         'videos/second-video.mp4',
         'videos/third-video.mp4'
       ];
+
       let index = 0;
+
+      function updateCountdown() {
+        const birthday = new Date('2026-07-07T00:00:00');
+        const now = new Date();
+        const diff = birthday - now;
+
+        if (diff <= 0) {
+          document.getElementById('days').textContent = '00';
+          document.getElementById('hours').textContent = '00';
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
+          document.getElementById('countdown-status').textContent = 'Happy Birthday, Edna! The celebration is here.';
+          return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        document.getElementById('countdown-status').textContent = 'Counting down to her special day.';
+      }
 
       video.addEventListener('ended', () => {
         index = (index + 1) % sources.length;
@@ -169,6 +212,9 @@
         video.load();
         video.play().catch(() => {});
       });
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     </script>
   </body>
 </html>
