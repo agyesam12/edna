@@ -360,7 +360,6 @@
       });
 
       video.addEventListener('canplaythrough', () => {
-        video.muted = true;
         video.play().catch(() => {});
       });
 
