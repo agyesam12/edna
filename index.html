@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
     <div class="page-shell">
       <header class="hero" id="home">
         <video id="hero-video" autoplay playsinline muted preload="auto">
@@ -49,72 +52,129 @@
         <button class="audio-toggle" id="audio-toggle" type="button" aria-pressed="false">🔊 Sound On</button>
       </header>
 
+      <section class="countdown-section" id="countdown">
+        <div class="countdown-glow" aria-hidden="true"></div>
+        <div class="floating-sparkles" aria-hidden="true">
+          <span>✨</span><span>🎈</span><span>✨</span><span>🎂</span><span>✨</span>
+        </div>
+        <div class="section-heading reveal">
+          <h2>The Countdown Is On</h2>
+          <p>Every second is bringing us closer to celebrating the woman Edna is becoming.</p>
+        </div>
+        <div class="countdown-grid reveal" id="countdown-grid">
+          <div class="countdown-item">
+            <strong id="cd-days">00</strong>
+            <span>Days</span>
+          </div>
+          <div class="countdown-item">
+            <strong id="cd-hours">00</strong>
+            <span>Hours</span>
+          </div>
+          <div class="countdown-item">
+            <strong id="cd-mins">00</strong>
+            <span>Minutes</span>
+          </div>
+          <div class="countdown-item">
+            <strong id="cd-secs">00</strong>
+            <span>Seconds</span>
+          </div>
+        </div>
+        <p class="countdown-message reveal" id="countdown-message">Until her big day — 7th July 🎂</p>
+      </section>
+
       <section id="about">
-        <div class="section-heading">
+        <div class="section-heading reveal">
           <h2>About Edna</h2>
           <p>A young scholar rooted in faith, shaped by excellence, and moving boldly toward the future.</p>
         </div>
 
         <div class="about-grid">
-          <article class="about-card">
+          <article class="about-card reveal">
             <h3>Faith & Character</h3>
             <p>Edna is a committed member of the Church of Jesus Christ of Latter Day Saints, and her faith continues to ground her values and guide her path.</p>
           </article>
-          <article class="about-card">
+          <article class="about-card reveal">
             <h3>Academic Journey</h3>
             <p>She attended STEM SHS and completed her studies this year, while also building a strong academic foundation from JHS at Kwabeng.</p>
           </article>
-          <article class="about-card">
+          <article class="about-card reveal">
             <h3>What Stands Out</h3>
             <p>Her poise, resilience, and dedication make her more than a student—she is a shining example of commitment and potential.</p>
           </article>
         </div>
+
+        <div class="stats-row">
+          <div class="stat-card reveal">
+            <strong class="stat-number" data-target="18">0</strong>
+            <span>Years of Grace</span>
+          </div>
+          <div class="stat-card reveal">
+            <strong class="stat-number" data-target="1" data-suffix="&nbsp;Faith">0</strong>
+            <span>Unshakable Foundation</span>
+          </div>
+          <div class="stat-card reveal">
+            <strong class="stat-number" data-target="3">0</strong>
+            <span>Dream Universities</span>
+          </div>
+          <div class="stat-card reveal">
+            <strong class="stat-number" data-target="100" data-suffix="%">0</strong>
+            <span>Determination</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="words-section" id="words">
+        <div class="quote-box reveal">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <p id="quote-text">Faith is taking the first step, even when you don't see the whole staircase.</p>
+          <span class="quote-author" id="quote-author">— Words for Edna</span>
+        </div>
       </section>
 
       <section class="gallery" id="growth">
-        <div class="section-heading">
+        <div class="section-heading reveal">
           <h2>Her Growth in Pictures</h2>
-          <p>Six moments that reflect her journey, confidence, and evolving grace.</p>
+          <p>Six moments that reflect her journey, confidence, and evolving grace. Tap any photo for a closer look.</p>
         </div>
 
         <div class="gallery-grid">
-          <article class="gallery-card">
-            <img src="images/smalledna-image.jpeg" alt="Edna smiling warmly" />
+          <article class="gallery-card reveal">
+            <img src="images/smalledna-image.jpeg" alt="Edna smiling warmly" data-caption="Bright Beginning — A joyful and radiant chapter of her early journey." />
             <div class="card-content">
               <h3>Bright Beginning</h3>
               <p>A joyful and radiant chapter of her early journey.</p>
             </div>
           </article>
-          <article class="gallery-card">
-            <img src="images/second-image.jpeg" alt="Edna in a reflective pose" />
+          <article class="gallery-card reveal">
+            <img src="images/second-image.jpeg" alt="Edna in a reflective pose" data-caption="Growing Confidence — Her poise and confidence continue to grow with every step." />
             <div class="card-content">
               <h3>Growing Confidence</h3>
               <p>Her poise and confidence continue to grow with every step.</p>
             </div>
           </article>
-          <article class="gallery-card">
-            <img src="images/third-image.jpeg" alt="Edna in a dignified portrait" />
+          <article class="gallery-card reveal">
+            <img src="images/third-image.jpeg" alt="Edna in a dignified portrait" data-caption="Steady Purpose — A sign of focus, determination, and inner strength." />
             <div class="card-content">
               <h3>Steady Purpose</h3>
               <p>A sign of focus, determination, and inner strength.</p>
             </div>
           </article>
-          <article class="gallery-card">
-            <img src="images/fourth-image.jpeg" alt="Edna in a stylish outfit" />
+          <article class="gallery-card reveal">
+            <img src="images/fourth-image.jpeg" alt="Edna in a stylish outfit" data-caption="Elegant Evolution — Her style and presence continue to shine with maturity." />
             <div class="card-content">
               <h3>Elegant Evolution</h3>
               <p>Her style and presence continue to shine with maturity.</p>
             </div>
           </article>
-          <article class="gallery-card">
-            <img src="images/fifth-image.jpeg" alt="Edna in a cheerful mood" />
+          <article class="gallery-card reveal">
+            <img src="images/fifth-image.jpeg" alt="Edna in a cheerful mood" data-caption="Joyful Spirit — Her happiness and warmth light up every room she enters." />
             <div class="card-content">
               <h3>Joyful Spirit</h3>
               <p>Her happiness and warmth light up every room she enters.</p>
             </div>
           </article>
-          <article class="gallery-card">
-            <img src="images/third-edna.jpeg" alt="Edna with a graceful look" />
+          <article class="gallery-card reveal">
+            <img src="images/third-edna.jpeg" alt="Edna with a graceful look" data-caption="Future Ahead — A beautiful reminder of the bright future still unfolding." />
             <div class="card-content">
               <h3>Future Ahead</h3>
               <p>A beautiful reminder of the bright future still unfolding.</p>
@@ -124,13 +184,13 @@
       </section>
 
       <section class="video-showcase" id="videos">
-        <div class="section-heading">
+        <div class="section-heading reveal">
           <h2>Video Highlights</h2>
           <p>These clips are part of the birthday celebration and now appear as a dedicated showcase section.</p>
         </div>
 
         <div class="video-grid">
-          <article class="video-card">
+          <article class="video-card reveal">
             <video controls playsinline preload="metadata">
               <source src="videos/first-video.mp4" type="video/mp4" />
             </video>
@@ -139,7 +199,7 @@
               <p>The first highlight reel that opens the celebration in the header.</p>
             </div>
           </article>
-          <article class="video-card">
+          <article class="video-card reveal">
             <video controls playsinline preload="metadata">
               <source src="videos/second-video.mp4" type="video/mp4" />
             </video>
@@ -148,7 +208,7 @@
               <p>A vibrant clip that adds warmth and energy to the birthday story.</p>
             </div>
           </article>
-          <article class="video-card">
+          <article class="video-card reveal">
             <video controls playsinline preload="metadata">
               <source src="videos/third-video.mp4" type="video/mp4" />
             </video>
@@ -161,34 +221,61 @@
       </section>
 
       <section id="future">
-        <div class="section-heading">
+        <div class="section-heading reveal">
           <h2>Her Future Aspirations</h2>
           <p>Edna’s next chapter is filled with purpose, service, and a strong vision for impact.</p>
         </div>
 
         <div class="future-grid">
-          <article class="future-card">
+          <article class="future-card reveal">
+            <span class="timeline-badge">01</span>
             <h3>University of Ghana</h3>
             <p>She aspires to pursue a health-related course at the University of Ghana and make a meaningful contribution to medical care and service.</p>
           </article>
-          <article class="future-card">
+          <article class="future-card reveal">
+            <span class="timeline-badge">02</span>
             <h3>Ghana Communication Technology University</h3>
             <p>Her interest in technology also points toward a future in Computer Science, where innovation and creativity can meet purpose.</p>
           </article>
-          <article class="future-card">
+          <article class="future-card reveal">
+            <span class="timeline-badge">03</span>
             <h3>KNUST</h3>
             <p>She is also considering a health course at KNUST, reflecting her love for excellence and service to humanity.</p>
           </article>
         </div>
       </section>
 
+      <section class="wishes-section" id="wishes">
+        <div class="section-heading reveal">
+          <h2>Leave Edna a Birthday Wish</h2>
+          <p>Add your own message of love, faith, and encouragement to her wall of wishes.</p>
+        </div>
+
+        <form class="wish-form reveal" id="wish-form">
+          <input type="text" id="wish-name" placeholder="Your name" maxlength="40" required />
+          <textarea id="wish-message" placeholder="Write your birthday wish for Edna..." maxlength="220" required></textarea>
+          <button type="submit" class="btn btn-primary">Add Wish 🎉</button>
+        </form>
+
+        <div class="wishes-wall" id="wishes-wall"></div>
+      </section>
+
       <section>
-        <div class="celebrate-card">
+        <div class="celebrate-card reveal">
           <h2>Happy Birthday, Edna</h2>
           <p>May this new year bring you joy, peace, new opportunities, and endless reasons to smile. Your story is only beginning, and it is already beautiful.</p>
-          <a class="btn btn-primary" href="#home">Back to Top</a>
+          <div class="celebrate-actions">
+            <a class="btn btn-primary" href="#home">Back to Top</a>
+            <button class="btn btn-secondary" id="confetti-btn" type="button">🎉 Celebrate Now</button>
+          </div>
         </div>
       </section>
+    </div>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close image preview">×</button>
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
     </div>
 
     <footer class="site-footer" id="contact">
@@ -231,6 +318,309 @@
 
       video.muted = true;
       playCurrentVideo();
+    </script>
+
+    <script>
+      /* ---------- Scroll progress bar ---------- */
+      const scrollProgress = document.getElementById('scroll-progress');
+      function updateScrollProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgress.style.width = percent + '%';
+      }
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+      updateScrollProgress();
+
+      /* ---------- Reveal on scroll ---------- */
+      const revealEls = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      revealEls.forEach((el) => revealObserver.observe(el));
+
+      /* ---------- Count-up stats ---------- */
+      const statNumbers = document.querySelectorAll('.stat-number');
+      const statObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.dataset.target, 10) || 0;
+            const suffix = el.dataset.suffix || '';
+            const duration = 1400;
+            const start = performance.now();
+            function tick(now) {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              el.innerHTML = Math.round(eased * target) + suffix;
+              if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+            statObserver.unobserve(el);
+          });
+        },
+        { threshold: 0.4 }
+      );
+      statNumbers.forEach((el) => statObserver.observe(el));
+
+      /* ---------- Birthday countdown ---------- */
+      const cdDays = document.getElementById('cd-days');
+      const cdHours = document.getElementById('cd-hours');
+      const cdMins = document.getElementById('cd-mins');
+      const cdSecs = document.getElementById('cd-secs');
+      const countdownMessage = document.getElementById('countdown-message');
+      const countdownSection = document.getElementById('countdown');
+
+      function isBirthdayToday(date) {
+        return date.getMonth() === 6 && date.getDate() === 7;
+      }
+
+      function getNextBirthday(now) {
+        const year = now.getFullYear();
+        const endOfBirthday = new Date(year, 6, 8, 0, 0, 0);
+        if (now >= endOfBirthday) {
+          return new Date(year + 1, 6, 7, 0, 0, 0);
+        }
+        return new Date(year, 6, 7, 0, 0, 0);
+      }
+
+      let birthdayConfettiFired = false;
+
+      function updateCountdown() {
+        const now = new Date();
+
+        if (isBirthdayToday(now)) {
+          cdDays.textContent = '00';
+          cdHours.textContent = '00';
+          cdMins.textContent = '00';
+          cdSecs.textContent = '00';
+          countdownMessage.textContent = "🎉 It's Edna's Birthday Today! 🎂";
+          countdownSection.classList.add('is-birthday');
+          if (!birthdayConfettiFired) {
+            birthdayConfettiFired = true;
+            launchConfetti(4000);
+          }
+          return;
+        }
+
+        const target = getNextBirthday(now);
+        const diff = target - now;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        cdDays.textContent = String(days).padStart(2, '0');
+        cdHours.textContent = String(hours).padStart(2, '0');
+        cdMins.textContent = String(mins).padStart(2, '0');
+        cdSecs.textContent = String(secs).padStart(2, '0');
+        countdownMessage.textContent = 'Until her big day — 7th July 🎂';
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      /* ---------- Inspirational quote rotator ---------- */
+      const quotes = [
+        { text: "Faith is taking the first step, even when you don't see the whole staircase.", author: '— Words for Edna' },
+        { text: 'She believed she could, so she did.', author: '— Words for Edna' },
+        { text: 'Growth is the reward of a heart that keeps choosing courage.', author: '— Words for Edna' },
+        { text: 'Your story is only beginning, and it is already beautiful.', author: '— Daddy\'s Pride' },
+        { text: 'With God, purpose, and hard work, every dream is within reach.', author: '— Words for Edna' }
+      ];
+      const quoteText = document.getElementById('quote-text');
+      const quoteAuthor = document.getElementById('quote-author');
+      let quoteIndex = 0;
+
+      if (quoteText) {
+        setInterval(() => {
+          quoteText.classList.add('fade-out');
+          setTimeout(() => {
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            quoteText.textContent = quotes[quoteIndex].text;
+            quoteAuthor.textContent = quotes[quoteIndex].author;
+            quoteText.classList.remove('fade-out');
+          }, 420);
+        }, 4800);
+      }
+
+      /* ---------- Gallery lightbox ---------- */
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+      const lightboxClose = document.getElementById('lightbox-close');
+
+      function openLightbox(img) {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxCaption.textContent = img.dataset.caption || img.alt;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+      }
+
+      document.querySelectorAll('.gallery-card img').forEach((img) => {
+        img.addEventListener('click', () => openLightbox(img));
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeLightbox();
+      });
+
+      /* ---------- Birthday wishes guestbook ---------- */
+      const wishForm = document.getElementById('wish-form');
+      const wishNameInput = document.getElementById('wish-name');
+      const wishMessageInput = document.getElementById('wish-message');
+      const wishesWall = document.getElementById('wishes-wall');
+      const WISHES_KEY = 'edna-birthday-wishes';
+
+      const defaultWishes = [
+        { name: 'Daddy', message: 'My pride, my joy. Watching you grow has been the greatest privilege of my life. Happy Birthday!' },
+        { name: 'Family', message: 'Wishing you a year filled with faith, laughter, and every good thing you deserve.' },
+        { name: 'Friends', message: 'Here is to more adventures, more wins, and more of your beautiful smile. Happy Birthday Edna!' }
+      ];
+
+      function loadWishes() {
+        try {
+          const stored = JSON.parse(localStorage.getItem(WISHES_KEY) || '[]');
+          return Array.isArray(stored) ? stored : [];
+        } catch (err) {
+          return [];
+        }
+      }
+
+      function saveWishes(wishes) {
+        localStorage.setItem(WISHES_KEY, JSON.stringify(wishes));
+      }
+
+      function renderWishCard(wish) {
+        const card = document.createElement('article');
+        card.className = 'wish-card';
+        const p = document.createElement('p');
+        p.textContent = wish.message;
+        const span = document.createElement('span');
+        span.textContent = '— ' + wish.name;
+        card.appendChild(p);
+        card.appendChild(span);
+        wishesWall.appendChild(card);
+      }
+
+      function renderAllWishes() {
+        wishesWall.innerHTML = '';
+        const wishes = [...defaultWishes, ...loadWishes()];
+        if (wishes.length === 0) {
+          const empty = document.createElement('p');
+          empty.className = 'wishes-empty';
+          empty.textContent = 'Be the first to leave Edna a birthday wish!';
+          wishesWall.appendChild(empty);
+          return;
+        }
+        wishes.forEach(renderWishCard);
+      }
+
+      renderAllWishes();
+
+      wishForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = wishNameInput.value.trim();
+        const message = wishMessageInput.value.trim();
+        if (!name || !message) return;
+
+        const wishes = loadWishes();
+        const newWish = { name, message };
+        wishes.push(newWish);
+        saveWishes(wishes);
+        renderWishCard(newWish);
+
+        wishForm.reset();
+        launchConfetti(1800);
+      });
+
+      /* ---------- Confetti ---------- */
+      const confettiCanvas = document.getElementById('confetti-canvas');
+      const ctx = confettiCanvas.getContext('2d');
+      let confettiParticles = [];
+      let confettiAnimationId = null;
+      let confettiStopTime = 0;
+
+      function resizeConfettiCanvas() {
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeConfettiCanvas);
+      resizeConfettiCanvas();
+
+      const confettiColors = ['#9b1f51', '#8a3fc9', '#e8b6ff', '#f8eef9', '#d6c2da'];
+
+      function createParticle() {
+        return {
+          x: Math.random() * confettiCanvas.width,
+          y: -20 - Math.random() * 100,
+          size: 6 + Math.random() * 6,
+          color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+          speedY: 2 + Math.random() * 3,
+          speedX: -1.5 + Math.random() * 3,
+          rotation: Math.random() * 360,
+          rotationSpeed: -6 + Math.random() * 12
+        };
+      }
+
+      function launchConfetti(duration) {
+        confettiStopTime = performance.now() + duration;
+        const count = Math.min(160, confettiParticles.length + 120);
+        for (let i = 0; i < count; i++) {
+          confettiParticles.push(createParticle());
+        }
+        if (!confettiAnimationId) {
+          confettiAnimationId = requestAnimationFrame(animateConfetti);
+        }
+      }
+
+      function animateConfetti(now) {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+        confettiParticles.forEach((p) => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rotation += p.rotationSpeed;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        });
+
+        confettiParticles = confettiParticles.filter((p) => p.y < confettiCanvas.height + 40);
+
+        if (now < confettiStopTime || confettiParticles.length > 0) {
+          confettiAnimationId = requestAnimationFrame(animateConfetti);
+        } else {
+          confettiAnimationId = null;
+        }
+      }
+
+      const confettiBtn = document.getElementById('confetti-btn');
+      confettiBtn.addEventListener('click', () => launchConfetti(2600));
     </script>
   </body>
 </html>
