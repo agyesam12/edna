@@ -28,6 +28,7 @@
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
     <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+    <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑</button>
 
     <div class="page-shell">
       <header class="hero" id="home">
@@ -58,6 +59,7 @@
           <span>✨</span><span>🎈</span><span>✨</span><span>🎂</span><span>✨</span>
         </div>
         <div class="section-heading reveal">
+          <span class="eyebrow">The Big Day</span>
           <h2>The Countdown Is On</h2>
           <p>Every second is bringing us closer to celebrating the woman Edna is becoming.</p>
         </div>
@@ -84,6 +86,7 @@
 
       <section id="about">
         <div class="section-heading reveal">
+          <span class="eyebrow">Our Story</span>
           <h2>About Edna</h2>
           <p>A young scholar rooted in faith, shaped by excellence, and moving boldly toward the future.</p>
         </div>
@@ -133,48 +136,49 @@
 
       <section class="gallery" id="growth">
         <div class="section-heading reveal">
+          <span class="eyebrow">Memories</span>
           <h2>Her Growth in Pictures</h2>
           <p>Six moments that reflect her journey, confidence, and evolving grace. Tap any photo for a closer look.</p>
         </div>
 
         <div class="gallery-grid">
           <article class="gallery-card reveal">
-            <img src="images/smalledna-image.jpeg" alt="Edna smiling warmly" data-caption="Bright Beginning — A joyful and radiant chapter of her early journey." />
+            <img src="images/smalledna-image.jpeg" alt="Edna smiling warmly" data-caption="Bright Beginning — A joyful and radiant chapter of her early journey." loading="lazy" decoding="async" />
             <div class="card-content">
               <h3>Bright Beginning</h3>
               <p>A joyful and radiant chapter of her early journey.</p>
             </div>
           </article>
           <article class="gallery-card reveal">
-            <img src="images/second-image.jpeg" alt="Edna in a reflective pose" data-caption="Growing Confidence — Her poise and confidence continue to grow with every step." />
+            <img src="images/second-image.jpeg" alt="Edna in a reflective pose" data-caption="Growing Confidence — Her poise and confidence continue to grow with every step." loading="lazy" decoding="async" />
             <div class="card-content">
               <h3>Growing Confidence</h3>
               <p>Her poise and confidence continue to grow with every step.</p>
             </div>
           </article>
           <article class="gallery-card reveal">
-            <img src="images/third-image.jpeg" alt="Edna in a dignified portrait" data-caption="Steady Purpose — A sign of focus, determination, and inner strength." />
+            <img src="images/third-image.jpeg" alt="Edna in a dignified portrait" data-caption="Steady Purpose — A sign of focus, determination, and inner strength." loading="lazy" decoding="async" />
             <div class="card-content">
               <h3>Steady Purpose</h3>
               <p>A sign of focus, determination, and inner strength.</p>
             </div>
           </article>
           <article class="gallery-card reveal">
-            <img src="images/fourth-image.jpeg" alt="Edna in a stylish outfit" data-caption="Elegant Evolution — Her style and presence continue to shine with maturity." />
+            <img src="images/fourth-image.jpeg" alt="Edna in a stylish outfit" data-caption="Elegant Evolution — Her style and presence continue to shine with maturity." loading="lazy" decoding="async" />
             <div class="card-content">
               <h3>Elegant Evolution</h3>
               <p>Her style and presence continue to shine with maturity.</p>
             </div>
           </article>
           <article class="gallery-card reveal">
-            <img src="images/fifth-image.jpeg" alt="Edna in a cheerful mood" data-caption="Joyful Spirit — Her happiness and warmth light up every room she enters." />
+            <img src="images/fifth-image.jpeg" alt="Edna in a cheerful mood" data-caption="Joyful Spirit — Her happiness and warmth light up every room she enters." loading="lazy" decoding="async" />
             <div class="card-content">
               <h3>Joyful Spirit</h3>
               <p>Her happiness and warmth light up every room she enters.</p>
             </div>
           </article>
           <article class="gallery-card reveal">
-            <img src="images/third-edna.jpeg" alt="Edna with a graceful look" data-caption="Future Ahead — A beautiful reminder of the bright future still unfolding." />
+            <img src="images/third-edna.jpeg" alt="Edna with a graceful look" data-caption="Future Ahead — A beautiful reminder of the bright future still unfolding." loading="lazy" decoding="async" />
             <div class="card-content">
               <h3>Future Ahead</h3>
               <p>A beautiful reminder of the bright future still unfolding.</p>
@@ -185,6 +189,7 @@
 
       <section class="video-showcase" id="videos">
         <div class="section-heading reveal">
+          <span class="eyebrow">Moments in Motion</span>
           <h2>Video Highlights</h2>
           <p>These clips are part of the birthday celebration and now appear as a dedicated showcase section.</p>
         </div>
@@ -222,6 +227,7 @@
 
       <section id="future">
         <div class="section-heading reveal">
+          <span class="eyebrow">What's Next</span>
           <h2>Her Future Aspirations</h2>
           <p>Edna’s next chapter is filled with purpose, service, and a strong vision for impact.</p>
         </div>
@@ -247,6 +253,7 @@
 
       <section class="wishes-section" id="wishes">
         <div class="section-heading reveal">
+          <span class="eyebrow">Share the Love</span>
           <h2>Leave Edna a Birthday Wish</h2>
           <p>Add your own message of love, faith, and encouragement to her wall of wishes.</p>
         </div>
@@ -321,6 +328,21 @@
     </script>
 
     <script>
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- Back to top ---------- */
+      const backToTopBtn = document.getElementById('back-to-top');
+      window.addEventListener(
+        'scroll',
+        () => {
+          backToTopBtn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.8);
+        },
+        { passive: true }
+      );
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      });
+
       /* ---------- Scroll progress bar ---------- */
       const scrollProgress = document.getElementById('scroll-progress');
       function updateScrollProgress() {
@@ -405,7 +427,7 @@
           cdSecs.textContent = '00';
           countdownMessage.textContent = "🎉 It's Edna's Birthday Today! 🎂";
           countdownSection.classList.add('is-birthday');
-          if (!birthdayConfettiFired) {
+          if (!birthdayConfettiFired && !prefersReducedMotion) {
             birthdayConfettiFired = true;
             launchConfetti(4000);
           }
