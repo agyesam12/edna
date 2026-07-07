@@ -860,6 +860,57 @@ section {
   opacity: 1;
 }
 
+/* ---------- Mom section ---------- */
+.mom-section {
+  padding-top: 3rem;
+}
+
+.mom-grid {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+.mom-grid .roots-card {
+  min-height: 340px;
+}
+
+.love-letter {
+  position: relative;
+  width: min(720px, 100%);
+  margin: 2.4rem auto 0;
+  padding: 2.2rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(155, 31, 81, 0.16), rgba(238, 201, 136, 0.12));
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow-soft);
+}
+
+.love-letter-icon {
+  display: block;
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.love-letter p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.02rem, 2vw, 1.25rem);
+  line-height: 1.75;
+  color: var(--text);
+  margin: 0 0 1rem;
+}
+
+.love-letter-signature {
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .lightbox {
   position: fixed;
   inset: 0;
@@ -1211,6 +1262,10 @@ section {
   .roots-overlay p {
     max-height: 6rem;
     opacity: 1;
+  }
+
+  .mom-grid {
+    grid-template-columns: 1fr;
   }
 }
 
