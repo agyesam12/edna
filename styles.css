@@ -533,6 +533,18 @@ section {
   margin: 0;
 }
 
+.site-footer a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(238, 201, 136, 0.4);
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+  border-color: rgba(232, 182, 255, 0.6);
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
