@@ -375,6 +375,71 @@
     <script>
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      /* ---------- Confetti ---------- */
+      const confettiCanvas = document.getElementById('confetti-canvas');
+      const ctx = confettiCanvas.getContext('2d');
+      let confettiParticles = [];
+      let confettiAnimationId = null;
+      let confettiStopTime = 0;
+
+      function resizeConfettiCanvas() {
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeConfettiCanvas);
+      resizeConfettiCanvas();
+
+      const confettiColors = ['#9b1f51', '#8a3fc9', '#e8b6ff', '#f8eef9', '#d6c2da'];
+
+      function createParticle() {
+        return {
+          x: Math.random() * confettiCanvas.width,
+          y: -20 - Math.random() * 100,
+          size: 6 + Math.random() * 6,
+          color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+          speedY: 2 + Math.random() * 3,
+          speedX: -1.5 + Math.random() * 3,
+          rotation: Math.random() * 360,
+          rotationSpeed: -6 + Math.random() * 12
+        };
+      }
+
+      function launchConfetti(duration) {
+        confettiStopTime = performance.now() + duration;
+        const count = Math.min(160, confettiParticles.length + 120);
+        for (let i = 0; i < count; i++) {
+          confettiParticles.push(createParticle());
+        }
+        if (!confettiAnimationId) {
+          confettiAnimationId = requestAnimationFrame(animateConfetti);
+        }
+      }
+
+      function animateConfetti(now) {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+        confettiParticles.forEach((p) => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rotation += p.rotationSpeed;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        });
+
+        confettiParticles = confettiParticles.filter((p) => p.y < confettiCanvas.height + 40);
+
+        if (now < confettiStopTime || confettiParticles.length > 0) {
+          confettiAnimationId = requestAnimationFrame(animateConfetti);
+        } else {
+          confettiAnimationId = null;
+        }
+      }
+
       /* ---------- Back to top ---------- */
       const backToTopBtn = document.getElementById('back-to-top');
       window.addEventListener(
@@ -763,71 +828,6 @@
         wishForm.reset();
         launchConfetti(1800);
       });
-
-      /* ---------- Confetti ---------- */
-      const confettiCanvas = document.getElementById('confetti-canvas');
-      const ctx = confettiCanvas.getContext('2d');
-      let confettiParticles = [];
-      let confettiAnimationId = null;
-      let confettiStopTime = 0;
-
-      function resizeConfettiCanvas() {
-        confettiCanvas.width = window.innerWidth;
-        confettiCanvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', resizeConfettiCanvas);
-      resizeConfettiCanvas();
-
-      const confettiColors = ['#9b1f51', '#8a3fc9', '#e8b6ff', '#f8eef9', '#d6c2da'];
-
-      function createParticle() {
-        return {
-          x: Math.random() * confettiCanvas.width,
-          y: -20 - Math.random() * 100,
-          size: 6 + Math.random() * 6,
-          color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
-          speedY: 2 + Math.random() * 3,
-          speedX: -1.5 + Math.random() * 3,
-          rotation: Math.random() * 360,
-          rotationSpeed: -6 + Math.random() * 12
-        };
-      }
-
-      function launchConfetti(duration) {
-        confettiStopTime = performance.now() + duration;
-        const count = Math.min(160, confettiParticles.length + 120);
-        for (let i = 0; i < count; i++) {
-          confettiParticles.push(createParticle());
-        }
-        if (!confettiAnimationId) {
-          confettiAnimationId = requestAnimationFrame(animateConfetti);
-        }
-      }
-
-      function animateConfetti(now) {
-        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-
-        confettiParticles.forEach((p) => {
-          p.y += p.speedY;
-          p.x += p.speedX;
-          p.rotation += p.rotationSpeed;
-
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate((p.rotation * Math.PI) / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-          ctx.restore();
-        });
-
-        confettiParticles = confettiParticles.filter((p) => p.y < confettiCanvas.height + 40);
-
-        if (now < confettiStopTime || confettiParticles.length > 0) {
-          confettiAnimationId = requestAnimationFrame(animateConfetti);
-        } else {
-          confettiAnimationId = null;
-        }
-      }
 
       const confettiBtn = document.getElementById('confetti-btn');
       confettiBtn.addEventListener('click', () => launchRomanticShow());
